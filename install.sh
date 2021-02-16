@@ -61,7 +61,7 @@ then
     cp ./tingfinder.csv $HOME 
     echo "${BOLD}+${NORMAL} \"tingfinder.csv\" copied to "$HOME
     sed -i '/FILE_NAME_PATH/c\FILE_NAME = "'$FILE_NAME_PATH'"' /tmp/tingfinder
-    echo "${BOKD}+${NORMAL} \"tingfinder.csv\" path changed to "$HOME
+    echo "${BOLD}+${NORMAL} \"tingfinder.csv\" path changed to "$HOME
     echo ""
 else
     echo "${BOLD}*${NORMAL} tingfinder.csv already exists. Skipping."
