@@ -35,6 +35,7 @@ If you have [cron](https://wiki.archlinux.org/index.php/Cron) installed on your 
 `crontab -e`
 
 In that file you put in this line - and remember to put your username where it says YOUR-USER
+
 `*/30 * * * * /usr/local/bin/tingfinder.py > /home/YOUR-USER/Desktop/output.log`
 
 ## Uninstalling
