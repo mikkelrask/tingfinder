@@ -26,7 +26,7 @@ I then made a simple version, where I could put in a specific product, and let t
 
 One thing lead to another, and here is where we ended up, where I specialized the whole script for my friend who does trading with used furniture and stuff like that. However I still find it very useful for my own sake, and do use it on my own.  
 
-#TL;DR
+# TL;DR
 ### Requirements
 Before installing make sure you have following programs installed:
 [python, pip](https://www.python.org/downloads/), [google chrome](https://www.google.com/chrome/) and [chromedriver](https://chromedriver.chromium.org/downloads).
