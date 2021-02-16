@@ -2,16 +2,16 @@
 
 Tingfinder is a webcrawler made with python and selenium, that searches 3 of the major trading platforms in denmark; Den Blå Avis, Gul&Gratis and Lauritz.com for a predefined list of products, that we look for. A wrapper, basicly.
 
-We got a "search agent" - a simple `.csv` file with our search terms, realistic minimum price and our max price. Then tingfinder tells us if we got any hits, how many, and a direct link to the overview page for the given platform. 
+We got a "search agent" - a simple `.csv` file that holds our search terms, realistic minimum price and our max price. Then tingfinder tells us if we got any hits, how many, and a direct link to the overview page for the given platform. 
 
 ## How it works
-Like mentioned I used the [Selenium](https://pypi.org/project/selenium/) library to open up a headless (no window) Chrome window, and line by line, product by product visit the 3 trading platforms, insert our search terms and min/max prices, and notify us, if there's any hits.
+Like mentioned I used the [Selenium](https://pypi.org/project/selenium/) library to open up a headless (no window) Chrome instance, and line by line, product by product visit the 3 trading platforms, insert our search terms and min/max prices, and notify us, if there's any hits.
 
 It saves the number of hits for each product line in a cache data folder, and only notifies us, if the number of hits has gone up, since our last search.
 
 The script uses [notify-send](https://pypi.org/project/notify-send/) to alert us, when products has shown up in our searches, just as the std.output tells us what it does at any given moment. Usually I forward the std.out to a file called output.log on my desktop. 
 
-How I use it, is through a cronjob that runs once every half hour, as long as my computer is on, and simply ship the output to the log on my desktop. 
+How I use it, is through a cronjob that runs once every 30 minutes, as long as my computer is on, and simply ship the output to a log file on my desktop. 
 
 If you have [cron](https://wiki.archlinux.org/index.php/Cron) installed on your system you can add tingfinder.py to your cronjobs by firing up a terminal and type 
 `crontab -e`
@@ -26,6 +26,7 @@ I then made a simple version, where I could put in a specific product, and let t
 
 One thing lead to another, and here is where we ended up, where I specialized the whole script for my friend who does trading with used furniture and stuff like that. However I still find it very useful for my own sake, and do use it on my own.  
 
+#TL;DR
 ### Requirements
 Before installing make sure you have following programs installed:
 [python, pip](https://www.python.org/downloads/), [google chrome](https://www.google.com/chrome/) and [chromedriver](https://chromedriver.chromium.org/downloads).
