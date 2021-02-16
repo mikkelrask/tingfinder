@@ -5,9 +5,9 @@ then
     echo "Removed data folder"
 fi
 
-if [ -f /usr/local/bin/tingfinder ]
+if [ -f /usr/local/bin/tingfinder.py ]
 then
-    sudo rm /usr/local/bin/tingfinder
+    sudo rm /usr/local/bin/tingfinder.py
     echo "Removed binary"
 fi
 
