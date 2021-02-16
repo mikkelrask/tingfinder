@@ -18,22 +18,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         command -v python3 >/dev/null 2>&1 &&  sudo pip install -r ./requirements.txt # POSIX-compliant
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         # Mac OSX
-        which python3
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-        # POSIX compatibility layer and Linux environment emulation for Windows
-        which python3
-elif [[ "$OSTYPE" == "msys" ]]; then
-        # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-        which python3
-elif [[ "$OSTYPE" == "win32" ]]; then
-        # I'm not sure this can happen.
-        echo "win32"
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
-        # ...
-        echo "freebsd"
+        command -v python3 >/dev/null 2>&1 &&  pip3 install -r ./requirements.txt # POSIX-compliant
 else
-    echo "Could not detect OS. Exiting"
-    exit
+    echo "${BOLD}!${NORMAL} Please install dependencies according to your OS. - ${BOLD}requirements.txt${NORMAL}"
 fi
 
 if [ ! -f /tmp/tingfinder ]
