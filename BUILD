@@ -212,7 +212,7 @@ def Lauritz_com():
             print("URL:" + driver.current_url)
             notification(string,title=PRODUCT)
             # Dump the new number of items into the database
-            pickle.dump(l_antal[0], open("/home/raske/Scripts/dba/data/" + \
+            pickle.dump(l_antal[0], open(DATA_FOLDER + \
                                        remove(PRODUCT) + "_l.dat", "wb"))
         elif diff == 0:
             print("Ingen nye annoncer.")
@@ -220,7 +220,7 @@ def Lauritz_com():
         else:
             print(int(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
             print("URL: " + driver.current_url)
-            pickle.dum(l_antal[0], open("/home/raske/Scripts/dba/data/" + \
+            pickle.dum(l_antal[0], open(DATA_FOLDER + \
                                      remove(PRODUCT) + "_l.dat", "wb"))
     except:
         print(PRODUCT + " ikke fundet i prisklassen.")
