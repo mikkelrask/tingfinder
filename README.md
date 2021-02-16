@@ -16,11 +16,12 @@ Before installing make sure you have following programs installed:
 [python, pip](https://www.python.org/downloads/), [google chrome](https://www.google.com/chrome/) and [chromedriver](https://chromedriver.chromium.org/downloads).
 
 ## Installing
-`git clone https://github.com/mikkelrask/tingfinder.git`
-`cd tingfinder`
-`sudo chmod +x install.sh`
-`./install.sh`
-
+```
+git clone https://github.com/mikkelrask/tingfinder.git
+cd tingfinder
+sudo chmod +x install.sh
+./install.sh
+```
 # How it works
 Like mentioned I use a library called [Selenium](https://pypi.org/project/selenium/) to basicly open up a headless (no window) instance of Google Chrome, and product by product visit the trading platforms, insert our search terms and min/max prices, and notify us, if there's any hits.
 
