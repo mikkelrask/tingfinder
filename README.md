@@ -40,15 +40,18 @@ In that file you put in this line - and remember to put your username where it s
 
 ## Uninstalling
 Open up the git folder you downloaded, change permissions to uninstall.sh to be executable and run the uninstall script.
-`cd tingfinder`
-`sudo chmod +x uninstall.sh`
-`./uninstall.sh`
+```
+cd tingfinder
+sudo chmod +x uninstall.sh
+./uninstall.sh
+```
 
 ## Where do I want to go
 Well, it's not like I have major plans for this scraper, but in the interest of learning, I still want to make this better.
 - I want to make a single database, rather than one for each product and platform. 
 - I want the user to be able to give the script arguments to disable and enable different platforms
-- I want the user to be able to give the script an argument to use a specific csv file path (default is in $HOME/tingfinder.csv)
+- I want the user to be able to give the script an argument to use a specific csv file path (default is in $HOME/nstall
+- tingfinder.csv)
 - Use [phantomJS](https://pypi.org/project/phantomjs/) instead of headless Chrome to let it be run on servers.
 - I want the script to have a man page and a `-h` flag to show it as well.
 - I want the user to be able to pick an HTML/md rapport, as output options.
