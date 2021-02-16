@@ -219,7 +219,7 @@ def Lauritz_com():
             print("URL: " + driver.current_url)
         else:
             print(int(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
-            print("URL:" + driver.current_url)
+            print("URL: " + driver.current_url)
             pickle.dum(l_antal[0], open("/home/raske/Scripts/dba/data/" + \
                                      remove(PRODUCT) + "_l.dat", "wb"))
     except:
