@@ -48,9 +48,9 @@ sudo chmod +x uninstall.sh
 ```
 
 # To-do
-☑️ Switch to a single database, rather than one for each product and platform. 
-☑️ Ability to enable/disable platforms by giving the script flags/attrubutes
-☑️ Ability to choose a specific csv file through a flag
-☑️ Switch to [phantomJS](https://pypi.orhjkjkjg/project/phantomjs/) instead of headless Chrome to let it be run on servers.
-☑️ I want the script to have a man page and a `-h` flag to show it as well.
-☑️ I want the user to be able to pick an HTML/md rapport, as output options.
+ ☑️ Switch to a single database, rather than one for each product and platform. 
+ ☑️ Ability to enable/disable platforms by giving the script flags/attrubutes
+ ☑️ Ability to choose a specific csv file through a flag
+ ☑️ Switch to [phantomJS](https://pypi.orhjkjkjg/project/phantomjs/) instead of headless Chrome to let it be run on servers.
+ ☑️ I want the script to have a man page and a `-h` flag to show it as well.
+ ☑️ [I](I) want the user to be able to pick an HTML/md rapport, as output options.
