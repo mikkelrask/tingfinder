@@ -205,7 +205,7 @@ def Lauritz_com():
         diff = int(l_antal[0]) - db_antal
         if diff > 0:
             # If diff is a positive number, we got new ads.
-            string = str(l_antal[0]) + " fundet på GulGratis.dk. " + \
+            string = str(l_antal[0]) + " fundet på Lauritz.com. " + \
                 str(diff) + "+ ift. forrige søgning."
             print(str(l_antal[0]) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning")
