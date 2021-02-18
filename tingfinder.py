@@ -31,9 +31,9 @@ SEARCH_TERM = ""
 COOKIE = False
 
 # Full path to the CSV that holds out search terms, and min/max prices.
-FILE_NAME_PATH
+FILE_NAME = "./tingfinder.csv"
 
-DATA_FOLDER_PATH
+DATA_FOLDER = "data/"
 
 def slugify(string):
     """
