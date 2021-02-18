@@ -32,12 +32,17 @@ Before installing make sure you have following programs installed:
 [python, pip](https://www.python.org/downloads/), [google chrome](https://www.google.com/chrome/) and [chromedriver](https://chromedriver.chromium.org/downloads).
 
 ## Install
+### Linux/macOS:
 ```
 git clone https://github.com/mikkelrask/tingfinder.git
 cd tingfinder
 sudo chmod +x install.sh
 ./install.sh
 ```
+
+### Windows
+I have not created any installer for windows.
+Please download the latest `standalone` version from the [releases](https://github.com/mikkelrask/tingfinder/releases) page. It works just the same, but can not at the moment be run automatically.
 
 ### Uninstall
 Go to the git directory, change uninstall.sh permissions to be executable and run the it.
