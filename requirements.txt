@@ -1,3 +1,4 @@
 notify
 selenium
-chromedriverrich
+chromedriver
+rich
