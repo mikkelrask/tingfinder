@@ -228,7 +228,7 @@ def Lauritz_com():
         else:
             print("- " + int(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
             print("- URL: " + driver.current_url)
-            pickle.dum(l_antal[0], open(DATA_FOLDER + \
+            pickle.dump(l_antal[0], open(DATA_FOLDER + \
                                      slugify(SEARCH_TERM) + "_l.dat", "wb"))
     except:
         print("- " + SEARCH_TERM + " ikke fundet i prisklassen.")
