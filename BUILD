@@ -99,14 +99,14 @@ def den_blaa_avis():
             string = str(antal[0]) + ' annoncer fundet på dba_url.dk. ' + \
                                     str(diff) + '+ ift forrige søgning.'
             print(str(antal[0]) + ' annoncer fundet. ' + str(diff) + '+ ift forrige søgning.')
-            print("URL: " + driver.current_url)
+            print("- URL: " + driver.current_url)
             # Dump the new number of items into the database
             pickle.dump(int(antal[0]), open(DATA_FOLDER + \
                                             slugify(SEARCH_TERM) + "_dba.dat", "wb"))
             notification(string,title=SEARCH_TERM) # Send notification
         elif diff == 0:
             # If the number of hits is the same as last search:
-            print("- Ingen nye annoncer. (" + str(antal[0]) + ")")
+            print("- Ingen nye annoncer. (" + str(antal[0]) + " fundet)")
             print("- URL: " + driver.current_url)
         else:
             # If there are fewer hits than earlier:
@@ -164,7 +164,7 @@ def gul_og_gratis():
             pickle.dump(gg_antal, open(DATA_FOLDER + \
                                        slugify(SEARCH_TERM) + "_gg.dat", "wb"))
         elif diff == 0: # If there is products to show, but the number is the same as last search.
-            print("- Ingen nye annoncer. (" + gg_antal + ")")
+            print("- Ingen nye annoncer. (" + gg_antal + " fundet)")
             print("- URL: " + driver.current_url)
         else: # If diff is negative, some products have been removed/sold
             print("- " + gg_antal + " fundet. " + str(diff) + " ift forrige søgning.")
@@ -217,13 +217,13 @@ def Lauritz_com():
                 str(diff) + "+ ift. forrige søgning."
             print("- " + str(l_antal[0]) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning")
-            print("URL: " + driver.current_url)
+            print("- URL: " + driver.current_url)
             notification(string,title=SEARCH_TERM)
             # Dump the new number of items into the database
             pickle.dump(l_antal[0], open(DATA_FOLDER + \
                                        slugify(SEARCH_TERM) + "_l.dat", "wb"))
         elif diff == 0:
-            print("- Ingen nye annoncer. (" + l_antal[0] + ")")
+            print("- Ingen nye annoncer. (" + l_antal[0] + " fundet)")
             print("- URL: " + driver.current_url)
         else:
             print("- " + int(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
@@ -248,7 +248,7 @@ with console.status("[bold green] Søger") as status:
             MAX_VALUE = row[2]
             # Printing output to std.out
             console.print("[bold green]Produkt:[/bold green] \"" + SEARCH_TERM + "\"")
-            console.print("[bold green]Pris: [/bold green]" + MIN_VALUE + "-" + MAX_VALUE)
+            console.print("[bold green]Pris: [/bold green]" + MIN_VALUE + "-" + MAX_VALUE + " DKK")
             print(" ")
             console.print("[bold green]DBA.DK")
             den_blaa_avis() # Output from dba.dk
