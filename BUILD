@@ -96,7 +96,7 @@ def den_blaa_avis():
         diff = int(antal[0]) - db_antal # Calculate the difference, if any.
         if diff > 0:
             # If our diff is a positive number:
-            string = str(antal[0]) + ' annoncer fundet på dba_url.dk. ' + \
+            string = str(antal[0]) + ' annoncer fundet på DBA.dk. ' + \
                                     str(diff) + '+ ift forrige søgning.'
             print(str(antal[0]) + ' annoncer fundet. ' + str(diff) + '+ ift forrige søgning.')
             print("- URL: " + driver.current_url)
