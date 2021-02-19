@@ -171,10 +171,10 @@ def gul_og_gratis():
             pickle.dump(gg_antal, open(DATA_FOLDER + \
                                        slugify(SEARCH_TERM) + "_gg.dat", "wb"))
         elif diff == 0: # If there is products to show, but the number is the same as last search.
-            print("- Ingen nye annoncer. (" + gg_antal + " fundet)")
+            print("- Ingen nye annoncer. (" + str(gg_antal) + " fundet)")
             print("- URL: " + driver.current_url)
         else: # If diff is negative, some products have been removed/sold
-            print("- " + gg_antal + " fundet. " + str(diff) + " ift forrige søgning.")
+            print("- " + str(gg_antal) + " fundet. " + str(diff) + " ift forrige søgning.")
             print("- URL: " + driver.current_url)
             # Dump the new number of items into the database
             pickle.dump(gg_antal, open(DATA_FOLDER + \
@@ -189,10 +189,8 @@ def Lauritz_com():
     try: # See if we have any data on the given product else db antal is 0
         db_antal = pickle.load(open(DATA_FOLDER + \
                                     slugify(SEARCH_TERM) + "_l.dat", "rb"))
-        print(db_antal)
     except:
         db_antal = 0
-        print(db_antal)
 
     driver.get("https://lauritz.com")
     driver.implicitly_wait(2)
