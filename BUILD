@@ -5,7 +5,7 @@ tingfinder.csv file on the danish trading platforms dba.dk, gulgratis.dk and
 auction house Lauritz.com (experimental)
 """
 
-import time # We use time to do waits between pages
+from time import sleep # We use time to do waits between pages
 import datetime
 import pickle # Pickle is a simple database, to store the number of ads
 import csv # CSV is the fileformat of the product sheet.
@@ -13,6 +13,7 @@ from rich.console import Console
 from notify import notification # we use notify to send notifications to the user
 from selenium import webdriver # Selenium is what opens up the browser, and does the stuff
 from selenium.webdriver.chrome.options import Options # Options are passed to the Chrome browser
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys # Keys is so we can send keys to inputs.
 
 # Rich console
@@ -41,6 +42,7 @@ def slugify(string):
     Used to create the database filename for each product/search term.
     """
     return string.replace(" ","-")
+    return string.replace("--","-")
 
 def add_plus(string):
     """
@@ -65,19 +67,22 @@ def den_blaa_avis():
         db_antal = 0
 
     driver.get(dba_url) # Open dba_url.dk in the chrome browser
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(2)
+    sleep(1)
 
     try:
         # Try to click the reject COOKIEs button if it's there.
-        driver.find_element_by_id("onetrust-reject-all-handler").click()
-    except:
-        COOKIE = True
+        REJECT = driver.find_element_by_id("onetrust-reject-all-handler")
+        REJECT.click()
+    except NoSuchElementException:
+        COOKIE = False
 
     search = driver.find_element_by_id("searchField")
 
     search.send_keys(SEARCH_TERM) # send search term / product name
     search.send_keys(Keys.RETURN)
-    time.sleep(5)
+    sleep(2)
+    driver.implicitly_wait(2)
 
     driver.find_element_by_xpath("//h4[contains(text(), 'Pris')]").click() # Set our price wishes
     price = driver.find_element_by_class_name("rangeFrom") # Min value
@@ -85,10 +90,10 @@ def den_blaa_avis():
     price = driver.find_element_by_class_name("rangeTo") # Max value
     price.send_keys(MAX_VALUE)
     price.send_keys(Keys.RETURN)
-    time.sleep(5)
+    driver.implicitly_wait(2)
+    sleep(2)
 
-    try:
-        # if the td containing "annoncer" exists, it means we have hits on our search.
+    try: # if the td containing "annoncer" exists, it means we have hits on our search.
         antal_annoncer_string = driver.find_element_by_xpath("//td[contains(text(),\
                     'annoncer')]").get_attribute("innerHTML").strip()
         # Extract the integer from the text
@@ -115,7 +120,7 @@ def den_blaa_avis():
             # Dump the new number of items into the database
             pickle.dump(int(antal[0]), open(DATA_FOLDER + \
                                             slugify(SEARCH_TERM) + "_dba.dat", "wb"))
-    except:
+    except NoSuchElementException:
         print("- " + SEARCH_TERM + " ikke fundet i prisklassen.")
 
 # Check the same on GulGratis
@@ -127,7 +132,7 @@ def gul_og_gratis():
     """
     try: # See if we have any data on the given product else db antal is 0
         db_antal = pickle.load(open(DATA_FOLDER + \
-                                    slugify(SEARCH_TERM) + "_gg.dat", "rb"))
+            slugify(SEARCH_TERM) + "_gg.dat", "rb"))
     except:
         db_antal = 0
 
@@ -136,15 +141,17 @@ def gul_og_gratis():
     gulgratis_url_base = "https://www.guloggratis.dk/s/q-"
     gulgratis_url_complete = gulgratis_url_base+query+"?price="+MIN_VALUE+"-"+MAX_VALUE #Build the correct URL
     driver.get(gulgratis_url_complete) # Open search page
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(2)
 
     try:
         # If we can find the accept cookie button, click it
-        driver.find_element_by_id("onetrust-accept-btn-handler").click()
-    except:
+        ACCEPT = driver.find_element_by_id("onetrust-accept-btn-handler")
+        ACCEPT.click()
+    except NoSuchElementException:
         COOKIE = False
 
-    time.sleep(5)
+    driver.implicitly_wait(2)
+    sleep(2)
 
     try: # If there is an H1 tag containing the text "Søgeresultat for" we continue
         gg_antal = int(driver.find_element_by_xpath("//h1[contains(text(),\
@@ -169,7 +176,10 @@ def gul_og_gratis():
         else: # If diff is negative, some products have been removed/sold
             print("- " + gg_antal + " fundet. " + str(diff) + " ift forrige søgning.")
             print("- URL: " + driver.current_url)
-    except:
+            # Dump the new number of items into the database
+            pickle.dump(gg_antal, open(DATA_FOLDER + \
+                                       slugify(SEARCH_TERM) + "_gg.dat", "wb"))
+    except NoSuchElementException:
         print("- " + SEARCH_TERM + " ikke fundet i prisklassen.")
 
 def Lauritz_com():
@@ -179,32 +189,43 @@ def Lauritz_com():
     try: # See if we have any data on the given product else db antal is 0
         db_antal = pickle.load(open(DATA_FOLDER + \
                                     slugify(SEARCH_TERM) + "_l.dat", "rb"))
+        print(db_antal)
     except:
         db_antal = 0
+        print(db_antal)
 
     driver.get("https://lauritz.com")
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(2)
     try: # Decline cookies
-        driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonLevelOptinDeclineAll").click()
+        DECLINE = driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonLevelOptinDeclineAll")
+        DECLINE.click()
     except:
         COOKIE = True
 
+    driver.implicitly_wait(2)
+    
     search = driver.find_element_by_id("SearchTextBox")
     search.send_keys(SEARCH_TERM)
     search.send_keys(Keys.ENTER)
-    driver.implicitly_wait(5)
+    sleep(2)
+    driver.implicitly_wait(2)
     if int(MAX_VALUE)<=2000: # Dial in the price. I use the MAX_VALUE and compare to the filtering options.
-        filter = driver.find_element_by_xpath("//option[contains(text(), 'Under 2,000 DKK')]")
+        filter = driver.find_element_by_xpath("//option[contains(text(),\
+                                              'Under 2,000 DKK')]")
     elif int(MAX_VALUE)<=5000:
-        filter = driver.find_element_by_xpath("//option[contains(text(), 'Under 5,000 DKK')]")
+        filter = driver.find_element_by_xpath("//option[contains(text(),\
+                                              'Under 5,000 DKK')]")
     elif int(MAX_VALUE)<=10000:
-        filter = driver.find_element_by_xpath("//option[contains(text(), 'Under 10,000 DKK')]")
+        filter = driver.find_element_by_xpath("//option[contains(text(),\
+                                              'Under 10,000 DKK')]")
     elif int(MAX_VALUE)<=20000:
-        filter = driver.find_element_by_xpath("//option[contains(text(), 'Under 20,000 DKK')]")
+        filter = driver.find_element_by_xpath("//option[contains(text(),\
+                                              'Under 20,000 DKK')]")
     else:
         filter = driver.find_element_by_tag_name("body")
     filter.click() # Click the filtering option
-    driver.implicitly_wait(5)
+    sleep(2)
+    driver.implicitly_wait(2)
     try:
         antal_annoncer = driver.find_element_by_id("List_TotalItemCount")
         antal_annoncer_string = antal_annoncer.get_attribute("innerHTML")
@@ -220,19 +241,16 @@ def Lauritz_com():
             print("- URL: " + driver.current_url)
             notification(string,title=SEARCH_TERM)
             # Dump the new number of items into the database
-            pickle.dump(l_antal[0], open(DATA_FOLDER + \
-                                       slugify(SEARCH_TERM) + "_l.dat", "wb"))
+            pickle.dump(l_antal[0], open(DATA_FOLDER + slugify(SEARCH_TERM) + "_l.dat", "wb"))
         elif diff == 0:
-            print("- Ingen nye annoncer. (" + l_antal[0] + " fundet)")
+            print("- Ingen nye annoncer. (" + str(l_antal[0]) + " fundet)")
             print("- URL: " + driver.current_url)
         else:
-            print("- " + int(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
+            print("- " + str(l_antal[0]) + " fundet. " + str(diff) + " ift forrige søgning.")
             print("- URL: " + driver.current_url)
-            pickle.dump(l_antal[0], open(DATA_FOLDER + \
-                                     slugify(SEARCH_TERM) + "_l.dat", "wb"))
-    except:
+            pickle.dump(l_antal[0], open(DATA_FOLDER + slugify(SEARCH_TERM) + "_l.dat", "wb"))
+    except NoSuchElementException:
         print("- " + SEARCH_TERM + " ikke fundet i prisklassen.")
-
 
 
 
