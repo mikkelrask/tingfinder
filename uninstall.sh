@@ -28,13 +28,13 @@ else
     echo "${BOLD}! ERROR:${NORMAL} ${BOLD}$DATA_FOLDER${NORMAL} not found - Not removed."
 fi
 
-if [ -f $HOME/tingfinder.csv ]
+if [ -f $HOME/.config/tingfinder/search-agent.csv ]
 then
-    sudo rm $HOME/tingfinder.csv
+    sudo rm $HOME/.config/tingfinder/search-agent.csv
     echo "${BOLD}+${NORMAL} Search agent (${BOLD}$HOME/tingfinder.csv${NORMAL}) removed"
 else
     ((ERRNO=ERRNO+1))
-    echo "${BOLD}! ERROR: $HOME/tingfinder.csv${NORMAL} not found - Not removed."
+    echo "${BOLD}! ERROR: $HOME/.config/tingfinder/search-agent.csv${NORMAL} not found - Nothing to remove."
 fi
 
 if [ -f /usr/local/bin/tingfinder.py ]
@@ -43,7 +43,7 @@ then
     echo "${BOLD}+${NORMAL} "$BIN_FOLDER"tingfinder.py removed"
 else
     ((ERRNO=ERRNO+1))
-    echo "${BOLD}! ERROR: Tingfinder.py${NORMAL} not found in ${BOLD}$BIN_FOLDER${NORMAL} - Not removed."
+    echo "${BOLD}! ERROR: Tingfinder.py${NORMAL} not found in ${BOLD}$BIN_FOLDER${NORMAL} - Nothing to remove."
 fi
 echo ""
 
