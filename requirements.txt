@@ -1,4 +1,0 @@
-notify
-selenium
-chromedriver
-rich
