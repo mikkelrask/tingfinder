@@ -1,0 +1,255 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingfinder - Find your next purchase with ease</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+</head>
+<body>
+            
+            <section class="w-full px-6 mb-12 antialiased bg-white select-none">
+    <div class="mx-auto max-w-7xl">
+        <nav class="relative z-50 h-24" x-data="{ showMenu: false }">
+            <div class="container relative flex flex-wrap items-center justify-between h-24 mx-auto font-medium border-b border-gray-200 lg:justify-center sm:px-4 md:px-2">
+                <a href="#_" class="w-1/4 py-4 pr-4 md:py-0">
+                    <span class="text-xl font-black leading-none text-gray-900 select-none logo" id="">tingfinder<span class="text-green-400">.</span></span>
+                </a>
+                <div class="top-0 left-0 items-start hidden w-full h-full p-4 text-sm bg-gray-900 bg-opacity-50 md:w-3/4 md:absolute lg:text-base md:h-auto md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex fixed': showMenu, 'hidden': !showMenu }">
+                    <div class="flex-col w-full h-auto overflow-hidden bg-white rounded-lg select-none md:bg-transparent md:rounded-none md:relative md:flex md:flex-row md:overflow-auto">
+                        <a href="#_" class="inline-flex items-center block w-auto h-16 px-6 text-xl font-black leading-none text-gray-900 select-none md:hidden">tails<span class="text-indigo-600">.</span></a>
+                        <div class="flex flex-col items-start justify-center w-full text-center md:w-2/3 md:mt-0 md:flex-row md:items-center">
+                            <a href="#" class="inline-block w-full px-6 py-2 mx-0 font-medium text-left text-green-400 md:w-auto md:px-0 md:mx-2 lg:mx-3 md:text-center">Home</a>
+                            <a href="#features" class="inline-block w-full px-6 py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-green-600 lg:mx-3 md:text-center">Features</a>
+                            <a href="#" class="inline-block w-full px-6 py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-green-600 lg:mx-3 md:text-center" id="">Install</a>
+                            <a href="#" class="inline-block w-full px-6 py-2 mx-0 font-medium text-left text-gray-700 md:w-auto md:px-0 md:mx-2 hover:text-green-600 lg:mx-3 md:text-center" id="">Wiki</a>
+                        </div>
+                    </div>
+                </div>
+                <div @click="showMenu = !showMenu" class="absolute right-0 flex flex-col items-center items-end justify-center w-10 h-10 rounded-full cursor-pointer md:hidden hover:bg-gray-100">
+                    <svg class="w-6 h-6 text-gray-700" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg class="w-6 h-6 text-gray-700" x-show="showMenu" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <div class="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center">
+
+            <h1 class="text-5xl font-extrabold tracking-tight text-left text-gray-900 leading-tightest md:leading-10 md:text-center sm:leading-none md:text-6xl lg:text-7xl"><span class="inline md:block" id="">Find your next purchase with</span> <span class="relative mt-2 text-transparent md:inline-block bg-clip-text bg-gradient-to-br from-green-500 to-green-400" id="">the Tingfinder app</span></h1>
+            <div class="mx-auto mt-5 text-gray-500 md:mt-12 md:max-w-lg md:text-center lg:text-lg">Tingfinder is Danish and roughly translates to "The Stuff Finder". It searches online thriftstores for products you're looking for, so you don't have to!</div>
+            <div class="flex flex-col items-center mt-12 text-center">
+                <span class="relative inline-flex w-full rounded-full shadow-sm md:w-auto">
+                    <button class="bg-green-400 hover:bg-green-600 text-white font-bold py-4 px-8 rounded inline-flex items-center" id="">
+                       <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                       Download now</button>
+                </span>
+                <a href="https://github.com/mikkelrask/tingfinder.git" class="mt-3 text-sm text-teal-500 underline" id="">See project on Github.com</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+        
+        
+            <section class="py-20 bg-gray-50" id="features">
+  <div class="container items-center max-w-6xl px-4 px-10 mx-auto sm:px-20 md:px-32 lg:px-16">
+    <div class="flex flex-wrap items-center -mx-3">
+      <div class="order-1 w-full px-3 lg:w-1/2 lg:order-0">
+        <div class="w-full lg:max-w-md">
+          <h2 class="mb-4 text-3xl font-bold leading-tight tracking-tight sm:text-4xl font-heading" id="">Searching online thriftstores has never been easier!</h2>
+          <p class="mb-4 font-medium tracking-tight text-gray-400 xl:mb-6" id="">Tingfinder searches danish thriftstore platforms for a predefined list of products you're looking for, and only notifies you when you got new products.</p>
+          <ul>
+            <li class="flex items-center py-2 space-x-4 xl:py-3">
+            
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-server w-8 h-8 text-yellow-400" viewBox="0 0 16 16">
+                    <path d="M1.333 2.667C1.333 1.194 4.318 0 8 0s6.667 1.194 6.667 2.667V4c0 1.473-2.985 2.667-6.667 2.667S1.333 5.473 1.333 4V2.667z"/>
+                    <path d="M1.333 6.334v3C1.333 10.805 4.318 12 8 12s6.667-1.194 6.667-2.667V6.334c-.43.32-.931.58-1.458.79C11.81 7.684 9.967 8 8 8c-1.967 0-3.81-.317-5.21-.876a6.508 6.508 0 0 1-1.457-.79z"/>
+                    <path d="M14.667 11.668c-.43.319-.931.578-1.458.789-1.4.56-3.242.876-5.209.876-1.967 0-3.81-.316-5.21-.876a6.51 6.51 0 0 1-1.457-.79v1.666C1.333 14.806 4.318 16 8 16s6.667-1.194 6.667-2.667v-1.665z"/>
+                  </svg>
+              <span class="font-medium text-gray-500" id="">Search DBA.dk, GulOgGratis and Lauritz.com </span>
+            </li>
+            <li class="flex items-center py-2 space-x-4 xl:py-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack w-8 h-8 text-green-400" viewBox="0 0 16 16">
+                    <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+                  </svg>
+              <span class="font-medium text-gray-500" id="">Only show new products within your price range</span>
+            </li>
+            <li class="flex items-center py-2 space-x-4 xl:py-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill w-8 h-8 text-blue-500" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                  </svg>
+              <span class="font-medium text-gray-500">Results only show products near you</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="w-full px-3 mb-12 lg:w-1/2 order-0 lg:order-1 lg:mb-0"><img class="mx-auto sm:max-w-sm lg:max-w-full" src="./img/search.svg" alt="feature image" id=""></div>
+    </div>
+  </div>
+</section>
+
+        
+            
+            <section class="py-8 leading-7 text-gray-900 bg-white sm:py-12 md:py-16 lg:py-24">
+    <div class="max-w-6xl px-4 px-10 mx-auto border-solid lg:px-12">
+        <div class="flex flex-col items-start leading-7 text-gray-900 border-0 border-gray-200 lg:items-center lg:flex-row">
+            <div class="box-border flex-1 text-center border-solid sm:text-left">
+                <h2 class="m-0 text-4xl font-semibold leading-tight tracking-tight text-left text-black border-0 border-gray-200 sm:text-5xl">Start finding tings now</h2>
+                <p class="mt-2 text-xl text-left text-gray-900 border-0 border-gray-200 sm:text-2xl">Be up and running in just a few seconds. </p>
+            </div>
+            <a href="https://github.com/mikkelrask/tingfinder.git#install" target="_blank">
+                    <button class="bg-green-400 hover:bg-green-600 text-white font-bold py-4 px-8 rounded inline-flex items-center" id="">
+                Get Started
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                    </button>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+        
+        
+            
+            <section class="w-full bg-white pt-7 pb-7 md:pt-20 md:pb-24" id="">
+    <div class="box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16">
+
+        <!-- Image -->
+        <div class="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
+            <img src="img/install.svg" class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20">
+        </div>
+
+        <!-- Content -->
+        <div class="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
+            <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl" id="">Easy installation</h2>
+            <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">The included install script ensures everything is placed correctly on your system, ready to search for you! </p>
+            <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                    <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Always pulls the latest version
+                </li>
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                    <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Installs all python dependencies
+                </li>
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                    <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Is just as easy to uninstall 
+                </li>
+            </ul>
+        </div>
+        <!-- End  Content -->
+    </div>
+    <div class="box-border flex flex-col items-center content-center px-8 mx-auto mt-2 leading-6 text-black border-0 border-gray-300 border-solid md:mt-20 xl:mt-0 md:flex-row max-w-7xl lg:px-16" id="">
+
+        <!-- Content -->
+        <div class="box-border w-full text-black border-solid md:w-1/2 md:pl-6 xl:pl-32">
+            <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
+                Automated Tasks
+            </h2>
+            <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-10 lg:text-lg" id="">Tingfinder is made to be run automatically, for example through a cronjob or scheduled task.</p>
+            <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                    <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Shows you clickable notifications 
+                </li>
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid" id="">
+                    <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Saves detailed logs for easy readthrough 
+                </li>
+                <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid" id="">
+
+                  <span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-green-400 rounded-full"><span class="text-sm font-bold">✓</span></span> Easy to follow or guides on <a href="https://github.com/mikkelrask/tingfinder/wiki" target="_blank" class="text-green-400 underline">wiki</a> on how to automate your specific system
+
+                </li>
+            </ul>
+        </div>
+        <!-- End  Content -->
+
+        <!-- Image -->
+        <div class="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
+            <img src="img/features.svg" class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
+        </div>
+    </div>
+</section>
+
+        
+        
+            
+            <section class="relative py-16 bg-white min-w-screen animation-fade animation-delay">
+    <div class="container px-0 px-8 mx-auto sm:px-12 xl:px-5" id="">
+        <p class="text-xs font-bold text-left text-green-600 uppercase sm:mx-6 sm:text-center sm:text-normal sm:font-bold">
+            Got a
+            Question? - We’ve got answers.</p>
+        <h3 class="mt-1 text-2xl font-bold text-left text-gray-800 sm:mx-6 sm:text-3xl md:text-4xl lg:text-5xl sm:text-center sm:mx-0">
+            Frequently Asked Questions</h3>
+
+        <div class="w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
+            <h3 class="text-lg font-bold text-gray-600 sm:text-xl md:text-2xl">How does it work?</h3>
+            <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal" id="">Tingfinder uses a python library called Selenium that can automate browser tasks for us. It opens a headless chrome browser, and we can tell it which elements to interact with. With our defined products, prices and location it opens op <a href="https://dba.dk/" target="_blank" class="underline text-green-400">DBA.dk</a>, <a href="https://gulgratis.dk/" target="_blank" class="text-green-400 underline">GulGratis.dk</a> and <a href="https://lauritz.com" target="_blank" class="text-green-400 underline">Lauritz.com</a> and searches for relevant products.</p>
+        </div>
+        <div class="w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
+            <h3 class="text-lg font-bold text-gray-600 sm:text-xl md:text-2xl" id="">How does tingfinder know what to search for?</h3>
+            <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal" id="">Tingfinder creates a directory in your .config folder, that holds our config.py and search-agent.csv. In the config.py script we tell Tingfinder where to search, and in the search-agent.csv we tell what products to look for, and in what pricerange.  Formatting in the CSV file should match the prefilled product, like so; <code>"search term",min-price,max-price</code> and one product per line. Quotation marks on the search terms is required and min/max-price is set in DKK.</p>
+        </div>
+        <div class="w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
+            <h3 class="text-lg font-bold text-gray-600 sm:text-xl md:text-2xl" id="">How do I install tingfinder?</h3>
+          <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">Installing tingfinder is super easy! Just clone the repo from the github page, change permission on the installer, and run it. A copy/paste ready command is available at the <a href="https://github.com/mikkelrask/tingfinder.git#install" target="_blank" class="text-green-400 underline">Github readme</a>.</p>
+          <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">Windows has a seperate standalone <a href="https://github.com/mikkelrask/tingfinder/releases" class="text-green-400 underline" target="_blank">release</a> with an executable .exe file.</p>
+      </div>
+      <div class="w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
+          <h3 class="text-lg font-bold text-gray-600 sm:text-xl md:text-2xl">How do I set my geographical settings?</h3>
+          <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">You can easily change your settings in the config.py script located in <span class="underline">~/.config/tingfinder/config.py</span></p>
+          <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">Open the file in any old text editor, and put in your Danish postal code, and how far you're willing to travel go get the product.</p>
+          <p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal"> Hit save and start searching.</p>
+      </div>
+  </div>
+</section>
+<footer class="bg-white">
+  <div class="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+      <nav class="flex flex-wrap justify-center -mx-5 -my-2">
+          <div class="px-5 py-2">
+              <a href="https://mikkelrask.github.io" class="text-base leading-6 text-gray-500 hover:text-gray-900">
+                  Blog
+              </a>
+          </div>
+          <div class="px-5 py-2">
+              <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
+                  Contact
+              </a>
+          </div>
+      </nav>
+      <div class="flex justify-center mt-8 space-x-6">
+          <a href="https://instagram.com/raske.xyz" class="text-gray-400 hover:text-gray-500">
+              <span class="sr-only">Instagram</span>
+              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+              </svg>
+          </a>
+          <a href="https://twitter.com/mikkelraskdk" class="text-gray-400 hover:text-gray-500">
+              <span class="sr-only">Twitter</span>
+              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+              </svg>
+          </a>
+          <a href="https://github.com/mikkelrask" class="text-gray-400 hover:text-gray-500">
+              <span class="sr-only">GitHub</span>
+              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+              </svg>
+          </a>
+          <a href="https://dribbble.com/mikkelrask" class="text-gray-400 hover:text-gray-500">
+              <span class="sr-only">Dribbble</span>
+              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clip-rule="evenodd"></path>
+              </svg>
+          </a>
+      </div>
+      <p class="mt-8 text-base leading-6 text-center text-gray-400">See more at projects at <a href="https://raske.xyz" class="text-green-400 underline">raske.xyz</a></p>
+    </div>
+</footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+</body>
+</html>
