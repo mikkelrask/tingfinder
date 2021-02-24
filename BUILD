@@ -10,7 +10,7 @@ import datetime
 import pickle # Pickle is a simple database, to store the number of ads
 import csv # CSV is the fileformat of the product sheet.
 from rich.console import Console
-from notify import notification # we use notify to send notifications to the user
+import notify # we use notify to send notifications to the user
 from selenium import webdriver # Selenium is what opens up the browser, and does the stuff
 from selenium.webdriver.chrome.options import Options # Options are passed to the Chrome browser
 from selenium.common.exceptions import NoSuchElementException
@@ -108,7 +108,7 @@ def den_blaa_avis():
             # Dump the new number of items into the database
             pickle.dump(int(antal[0]), open(DATA_FOLDER + \
                                             slugify(SEARCH_TERM) + "_dba.dat", "wb"))
-            notification(string,title=SEARCH_TERM) # Send notification
+            notify.notification(string,title=SEARCH_TERM) # Send notification
         elif diff == 0:
             # If the number of hits is the same as last search:
             print("- Ingen nye annoncer. (" + str(antal[0]) + " fundet)")
@@ -139,7 +139,7 @@ def gul_og_gratis():
     # On this page we use the search query directly in the URL we're fetching.
     query = add_plus(SEARCH_TERM)
     gulgratis_url_base = "https://www.guloggratis.dk/s/q-"
-    gulgratis_url_complete = gulgratis_url_base+query+"?price="+MIN_VALUE+"-"+MAX_VALUE #Build the correct URL
+    gulgratis_url_complete = gulgratis_url_base+query+"?price="+MIN_VALUE+"-"+MAX_VALUE #Build the complete URL
     driver.get(gulgratis_url_complete) # Open search page
     driver.implicitly_wait(2)
 
@@ -166,11 +166,11 @@ def gul_og_gratis():
             print("- " + str(gg_antal) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning") # Print result
             print("- URL: " + driver.current_url) # Print URL to products
-            notification(string,title=SEARCH_TERM) # Notify the user
+            notify.notification(string,title=SEARCH_TERM) # Notify the user
             # Dump the new number of items into the database
             pickle.dump(gg_antal, open(DATA_FOLDER + \
                                        slugify(SEARCH_TERM) + "_gg.dat", "wb"))
-        elif diff == 0: # If there is products to show, but the number is the same as last search.
+        elif diff == 0: # If there is products to show, but the number of products is the same as last search.
             print("- Ingen nye annoncer. (" + str(gg_antal) + " fundet)")
             print("- URL: " + driver.current_url)
         else: # If diff is negative, some products have been removed/sold
@@ -237,7 +237,7 @@ def Lauritz_com():
             print("- " + str(l_antal[0]) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning")
             print("- URL: " + driver.current_url)
-            notification(string,title=SEARCH_TERM)
+            notify.notification(string,title=SEARCH_TERM)
             # Dump the new number of items into the database
             pickle.dump(l_antal[0], open(DATA_FOLDER + slugify(SEARCH_TERM) + "_l.dat", "wb"))
         elif diff == 0:
