@@ -62,6 +62,7 @@ else
     case $ANSWER in
         [Yy]|[Yy][Ee][Ss])                                                          
         echo "${BOLD}+${NORMAL} Continuing with installation.\n"
+        rm /tmp/tingfinder
         wget -q --show-progress --progress=bar:force:noscroll $BUILD_FILE_URL -O  /tmp/tingfinder ;;
         [Nn]|[Nn][Oo])                                                              
         echo "${BOLD}!${NORMAL} Abandoning installation.\n"
@@ -132,6 +133,6 @@ else
         esac          
 fi
 
-rm /tmp/tingfinder
+rm /tmp/tingfinder /tmp/config.yml /tmp/requirements.txt /tmp/search-agent.csv
 echo "${BOLD}+${NORMAL} Done cleaning - temporary files removed."
 printf "${BOLD}+${NORMAL} Installation done.\n\nTo start using tingfinder please open ${BOLD}search-agent.csv${NORMAL} in a text editor, and edit the products you\'re looking for.\nThe format is: \"name of product\",min-price,max-price"
