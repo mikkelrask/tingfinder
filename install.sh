@@ -12,7 +12,9 @@ NORMAL=$(tput sgr0)
 BIN_FOLDER=/usr/local/bin/ # Must be in your path to work proper.
 DATA_FOLDER="$HOME"/.cache/tingfinder/data/
 CONFIG_FOLDER="$HOME"/.config/tingfinder/
-GITHUB_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/BUILD"
+BUILD_FILE_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/BUILD"
+CONFIG_FILE_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/config.yml"
+SEARCH_AGENT_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/search-agent.csv"
 
 echo "Install script for ${BOLD}tingfinder.py${NORMAL} - a webcrawler made with selenium."
 echo ""
@@ -53,14 +55,14 @@ fi
 if [ ! -f /tmp/tingfinder ]
 then
     echo "${BOLD}+${NORMAL} Fetching temporary BUILD files."
-    wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder
+    wget -q --show-progress --progress=bar:force:noscroll $BUILD_FILE_URL -O  /tmp/tingfinder
 else
     echo "${BOLD}Buildfile already exists. Download latest version? [Y/n]${NORMAL}"
     read ANSWER
     case $ANSWER in
         [Yy]|[Yy][Ee][Ss])                                                          
         echo "${BOLD}+${NORMAL} Continuing with installation.\n"
-        wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder ;;
+        wget -q --show-progress --progress=bar:force:noscroll $BUILD_FILE_URL -O  /tmp/tingfinder ;;
         [Nn]|[Nn][Oo])                                                              
         echo "${BOLD}!${NORMAL} Abandoning installation.\n"
         exit 0 ;;                                                               
@@ -91,11 +93,13 @@ then
         mkdir -p $CONFIG_FOLDER
     fi
     FILE_NAME_PATH="${CONFIG_FOLDER}search-agent.csv"
-    cp ./search-agent.csv $CONFIG_FOLDER
+    wget -q --show-progress --progress=bar:force:noscroll $SEARCH_AGENT_URL /tmp/search-agent.csv
+    cp /tmp/search-agent.csv $CONFIG_FOLDER
     echo "${BOLD}+${NORMAL} \"search-agent.csv\" copied to $CONFIG_FOLDER"
     sed -i '/FILE_NAME_PATH/c\FILE_NAME = "'$FILE_NAME_PATH'"' /tmp/tingfinder
     echo "${BOLD}+${NORMAL} \"search-agent.csv\" Path changed to "$HOME" in temporary BUILD file"
-    cp ./config.yml $CONFIG_FOLDER
+    wget -q --show-progress --progress=bar:force:noscroll $CONFIG_FILE_URL /tmp/config.yml
+    cp /tmp/config.yml $CONFIG_FOLDER
     echo "${BOLD}+${NORMAL} \"config.yml\" copied to $CONFIG_FOLDER"
     sed -i '/CONFIG_FOLDER_PATH/c\CONFIG_FOLDER = "'$CONFIG_FOLDER'"' /tmp/tingfinder
     echo ""
@@ -115,7 +119,7 @@ else
     case $ANSWER in
         [Yy]|[Yy][Ee][Ss])                                                          
         printf 'Continuing with installation.\n'                     
-        wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder
+        wget -q --show-progress --progress=bar:force:noscroll $BUILD_FILE_URL -O  /tmp/tingfinder
         sudo cp /tmp/tingfinder $BIN_FOLDER/tingfinder.py
         echo "${BOLD}+${NORMAL} Copied tingfinder to $BIN_FOLDER"
         sudo chmod +x $BIN_FOLDER"tingfinder.py" ;;
