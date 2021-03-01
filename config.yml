@@ -1,0 +1,8 @@
+settings:
+  postal_code: 2400 # Your local postal code
+  search_radius: 100 # Our search radius measured in KM
+
+platforms: # Pick and choose where we want to search. All are on by default
+  den_blaa_avis: True
+  gul_gratis: False
+  lauritz_com: False

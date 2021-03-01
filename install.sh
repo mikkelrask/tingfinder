@@ -11,13 +11,14 @@ NORMAL=$(tput sgr0)
 
 BIN_FOLDER=/usr/local/bin/ # Must be in your path to work proper.
 DATA_FOLDER="$HOME"/.cache/tingfinder/data/
-CONFIG_FOLDER="$HOME"/.config/tingfinder
+CONFIG_FOLDER="$HOME"/.config/tingfinder/
 GITHUB_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/BUILD"
 
-echo "Install script for ${BOLD}tingfinder.py${NORMAL} - a dba/gulgratis crawler made with selenium."
+echo "Install script for ${BOLD}tingfinder.py${NORMAL} - a webcrawler made with selenium."
 echo ""
-echo "The script will install ${BOLD}tingfinder${NORMAL} in ${BOLD}$BIN_FOLDER${NORMAL} "
-echo "and create a data cache folder in ${BOLD}$DATA_FOLDER${NORMAL}."
+echo "The script will install ${BOLD}tingfinder.py${NORMAL} in ${BOLD}$BIN_FOLDER${NORMAL},"
+echo "add ${BOLD}config.yml${NORMAL} and ${BOLD}search-agent.csv${NORMAL} in ${BOLD}$CONFIG_FOLDER${NORMAL}"
+echo "and create a data cache in ${BOLD}$DATA_FOLDER${NORMAL}."
 echo ""
 echo "It will also make sure the latest version of ${BOLD}Selenium${NORMAL}, ${BOLD}chromedriver${NORMAL} and and ${BOLD}notify-send${NORMAL} is installed through pip."
 echo ""
@@ -86,14 +87,17 @@ if [ ! -f $HOME/.config/tingfinder/search-agent.csv ]
 then
     if [ ! -d $CONFIG_FOLDER ]
     then
-        echo "${BOLD}+ ${NORMAL} Creating config folder at $CONFIG_FOLDR"
+        echo "${BOLD}+ ${NORMAL} Creating config folder at $CONFIG_FOLDER"
         mkdir -p $CONFIG_FOLDER
     fi
-    FILE_NAME_PATH=$HOME"/.config/tingfinder/search-agent.csv"
-    cp ./search-agent.csv $HOME/.config/tingfinder/search-agent.csv 
-    echo "${BOLD}+${NORMAL} \"search-agent.csv\" copied to "$HOME
+    FILE_NAME_PATH="${CONFIG_FOLDER}search-agent.csv"
+    cp ./search-agent.csv $CONFIG_FOLDER
+    echo "${BOLD}+${NORMAL} \"search-agent.csv\" copied to $CONFIG_FOLDER"
     sed -i '/FILE_NAME_PATH/c\FILE_NAME = "'$FILE_NAME_PATH'"' /tmp/tingfinder
     echo "${BOLD}+${NORMAL} \"search-agent.csv\" Path changed to "$HOME" in temporary BUILD file"
+    cp ./config.yml $CONFIG_FOLDER
+    echo "${BOLD}+${NORMAL} \"config.yml\" copied to $CONFIG_FOLDER"
+    sed -i '/CONFIG_FOLDER_PATH/c\CONFIG_FOLDER = "'$CONFIG_FOLDER'"' /tmp/tingfinder
     echo ""
 else
     echo "${BOLD}!${NORMAL} \"search-agent.csv\" already exists. Skipping."
