@@ -23,7 +23,8 @@ DATA_FOLDER_PATH
 CONFIG_FOLDER_PATH
 
 #Import settings
-config = yaml.safe_load(open("config.yml"))
+config_file = CONFIG_FOLDER + "config.yml"
+config = yaml.safe_load(open(config_file))
 
 # Rich console for extra flavor
 console = Console()
