@@ -10,18 +10,27 @@ import datetime
 import pickle # Pickle is a simple database, to store the number of ads
 import csv # CSV is the fileformat of the product sheet.
 from rich.console import Console
-from notify import notification # we use notify to send notifications to the user
+import notify # we use notify to send notifications to the user
 from selenium import webdriver # Selenium is what opens up the browser, and does the stuff
 from selenium.webdriver.chrome.options import Options # Options are passed to the Chrome browser
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys # Keys is so we can send keys to inputs.
+import yaml
 
-# Rich console
+# Full paths generated on install
+FILE_NAME_PATH
+DATA_FOLDER_PATH
+CONFIG_FOLDER_PATH
+
+#Import settings
+config = yaml.safe_load(open("config.yml"))
+
+# Rich console for extra flavor
 console = Console()
+
 # Chrome settings
 chrome_options = Options()
 chrome_options.add_argument("--no-sandbox") # linux only
-#chrome_options.add_argument("--incognito")
 chrome_options.add_argument("--headless")
 
 #Initialize the browser and declare where to go
@@ -30,19 +39,16 @@ MIN_VALUE = 0
 MAX_VALUE = 0
 SEARCH_TERM = ""
 COOKIE = False
-
-# Full path to the CSV that holds out search terms, and min/max prices.
-FILE_NAME_PATH
-
-DATA_FOLDER_PATH
+POSTAL_CODE = config["settings"]["postal_code"]
+SEARCH_RADIUS = config["settings"]["search_radius"]
 
 def slugify(string):
     """
     Turns the seach term into a system friendly format.
     Used to create the database filename for each product/search term.
     """
-    return string.replace(" ","-")
-    return string.replace("--","-")
+    slugged = string.replace(" ","-")
+    return slugged.replace("--","-")
 
 def add_plus(string):
     """
@@ -55,7 +61,6 @@ def den_blaa_avis():
     """
     Opens dba.dk, reject cookies, input search terms and prices.
     Notifies user if the number of hits is larger than last search.
-    
     """
     dba_url = "https://dba.dk"
 
@@ -84,6 +89,15 @@ def den_blaa_avis():
     sleep(2)
     driver.implicitly_wait(2)
 
+    if POSTAL_CODE is not None:
+        km_radius = driver.find_element_by_id("GeoSearchRadius") # Find the input field for the search radius 
+        km_radius.send_keys(SEARCH_RADIUS) # Send it our search radius
+        sleep(1)
+        postal_code = driver.find_element_by_id("geosearch-zipcode")
+        postal_code.send_keys(POSTAL_CODE) # Send our postal code
+        postal_code.send_keys(Keys.RETURN) # Hit enter
+        sleep(2)
+    driver.implicitly_wait(2)
     driver.find_element_by_xpath("//h4[contains(text(), 'Pris')]").click() # Set our price wishes
     price = driver.find_element_by_class_name("rangeFrom") # Min value
     price.send_keys(MIN_VALUE)
@@ -108,7 +122,7 @@ def den_blaa_avis():
             # Dump the new number of items into the database
             pickle.dump(int(antal[0]), open(DATA_FOLDER + \
                                             slugify(SEARCH_TERM) + "_dba.dat", "wb"))
-            notification(string,title=SEARCH_TERM) # Send notification
+            notify.notification(string,title=SEARCH_TERM) # Send notification
         elif diff == 0:
             # If the number of hits is the same as last search:
             print("- Ingen nye annoncer. (" + str(antal[0]) + " fundet)")
@@ -139,7 +153,7 @@ def gul_og_gratis():
     # On this page we use the search query directly in the URL we're fetching.
     query = add_plus(SEARCH_TERM)
     gulgratis_url_base = "https://www.guloggratis.dk/s/q-"
-    gulgratis_url_complete = gulgratis_url_base+query+"?price="+MIN_VALUE+"-"+MAX_VALUE #Build the correct URL
+    gulgratis_url_complete = gulgratis_url_base+query+"?price="+MIN_VALUE+"-"+MAX_VALUE #Build the complete URL
     driver.get(gulgratis_url_complete) # Open search page
     driver.implicitly_wait(2)
 
@@ -166,11 +180,11 @@ def gul_og_gratis():
             print("- " + str(gg_antal) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning") # Print result
             print("- URL: " + driver.current_url) # Print URL to products
-            notification(string,title=SEARCH_TERM) # Notify the user
+            notify.notification(string,title=SEARCH_TERM) # Notify the user
             # Dump the new number of items into the database
             pickle.dump(gg_antal, open(DATA_FOLDER + \
                                        slugify(SEARCH_TERM) + "_gg.dat", "wb"))
-        elif diff == 0: # If there is products to show, but the number is the same as last search.
+        elif diff == 0: # If there is products to show, but the number of products is the same as last search.
             print("- Ingen nye annoncer. (" + str(gg_antal) + " fundet)")
             print("- URL: " + driver.current_url)
         else: # If diff is negative, some products have been removed/sold
@@ -237,7 +251,7 @@ def Lauritz_com():
             print("- " + str(l_antal[0]) + " fundet. " + str(diff) + \
                   "+ ifh. forrige søgning")
             print("- URL: " + driver.current_url)
-            notification(string,title=SEARCH_TERM)
+            notify.notification(string,title=SEARCH_TERM)
             # Dump the new number of items into the database
             pickle.dump(l_antal[0], open(DATA_FOLDER + slugify(SEARCH_TERM) + "_l.dat", "wb"))
         elif diff == 0:
@@ -263,18 +277,23 @@ with console.status("[bold green] Søger") as status:
             MIN_VALUE = row[1]
             MAX_VALUE = row[2]
             # Printing output to std.out
+            if config["platforms"]["den_blaa_avis"] is False and config["platforms"]["gul_gratis"] is False and config["platforms"]["lauritz_com"] is False:
+                print("No platforms is set in the config file. Please adjust and run again.")
             console.print("[bold green]Produkt:[/bold green] \"" + SEARCH_TERM + "\"")
             console.print("[bold green]Pris: [/bold green]" + MIN_VALUE + "-" + MAX_VALUE + " DKK")
             print(" ")
-            console.print("[bold green]DBA.DK")
-            den_blaa_avis() # Output from dba.dk
-            print(" ")
-            console.print("[bold green]GulGratis.dk ")
-            gul_og_gratis() # Output from GulGratis.dk
-            print(" ")
-            console.print("[bold green]Lauritz.com: ")
-            Lauritz_com() # Output from Lauritz.com
-            print(" ")
+            if config["platforms"]["den_blaa_avis"] is True:
+                console.print("[bold green]DBA.DK")
+                den_blaa_avis() # Output from dba.dk
+                print(" ")
+            if config["platforms"]["gul_gratis"] is True:
+                console.print("[bold green]GulGratis.dk ")
+                gul_og_gratis() # Output from GulGratis.dk
+                print(" ")
+            if config["platforms"]["lauritz_com"] is True:
+                console.print("[bold green]Lauritz.com: ")
+                Lauritz_com() # Output from Lauritz.com
+                print(" ")
             console.print("[bold red]-----------------------------------------")
             print(" ")
 

@@ -2,7 +2,7 @@
 
 #- Installing Tingfinder in /usr/local/bin and making it executable. 
 #- Creates data folder in $HOME/.cache/
-#- Creates tingfinder.csv in $HOME
+#- Creates search-agent.csv in $HOME
 #- Makes sure Python is installed
 #- Makes sure pip is installed
 #- Installs libs found in requirements.txt
@@ -11,11 +11,14 @@ NORMAL=$(tput sgr0)
 
 BIN_FOLDER=/usr/local/bin/ # Must be in your path to work proper.
 DATA_FOLDER="$HOME"/.cache/tingfinder/data/
+CONFIG_FOLDER="$HOME"/.config/tingfinder/
+GITHUB_URL="https://raw.githubusercontent.com/mikkelrask/tingfinder/main/BUILD"
 
-echo "Install script for ${BOLD}tingfinder.py${NORMAL} - a dba/gulgratis crawler made with selenium."
+echo "Install script for ${BOLD}tingfinder.py${NORMAL} - a webcrawler made with selenium."
 echo ""
-echo "The script will install ${BOLD}tingfinder${NORMAL} in ${BOLD}$BIN_FOLDER${NORMAL} "
-echo "and create a data cache folder in ${BOLD}$DATA_FOLDER${NORMAL}."
+echo "The script will install ${BOLD}tingfinder.py${NORMAL} in ${BOLD}$BIN_FOLDER${NORMAL},"
+echo "add ${BOLD}config.yml${NORMAL} and ${BOLD}search-agent.csv${NORMAL} in ${BOLD}$CONFIG_FOLDER${NORMAL}"
+echo "and create a data cache in ${BOLD}$DATA_FOLDER${NORMAL}."
 echo ""
 echo "It will also make sure the latest version of ${BOLD}Selenium${NORMAL}, ${BOLD}chromedriver${NORMAL} and and ${BOLD}notify-send${NORMAL} is installed through pip."
 echo ""
@@ -49,8 +52,22 @@ fi
 
 if [ ! -f /tmp/tingfinder ]
 then
-    echo "${BOLD}+${NORMAL} Creating temporary BUILD files."
-    cat BUILD > /tmp/tingfinder
+    echo "${BOLD}+${NORMAL} Fetching temporary BUILD files."
+    wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder
+else
+    echo "${BOLD}Buildfile already exists. Download latest version? [Y/n]${NORMAL}"
+    read ANSWER
+    case $ANSWER in
+        [Yy]|[Yy][Ee][Ss])                                                          
+        echo "${BOLD}+${NORMAL} Continuing with installation.\n"
+        wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder ;;
+        [Nn]|[Nn][Oo])                                                              
+        echo "${BOLD}!${NORMAL} Abandoning installation.\n"
+        exit 0 ;;                                                               
+        *)                                                                          
+        printf 'ERROR: Invalid response -- quitting.\n' 1>&2                    
+        exit 2 ;;                                                               
+    esac          
 fi
 
 echo "${BOLD}+${NORMAL} Check if "$HOME"/.cache/tingfinder/data exists."
@@ -66,16 +83,24 @@ else
     echo ""
 fi 
 
-if [ ! -f $HOME/tingfinder.csv ]
+if [ ! -f $HOME/.config/tingfinder/search-agent.csv ]
 then
-    FILE_NAME_PATH=$HOME"/tingfinder.csv"
-    cp ./tingfinder.csv $HOME 
-    echo "${BOLD}+${NORMAL} \"tingfinder.csv\" copied to "$HOME
+    if [ ! -d $CONFIG_FOLDER ]
+    then
+        echo "${BOLD}+ ${NORMAL} Creating config folder at $CONFIG_FOLDER"
+        mkdir -p $CONFIG_FOLDER
+    fi
+    FILE_NAME_PATH="${CONFIG_FOLDER}search-agent.csv"
+    cp ./search-agent.csv $CONFIG_FOLDER
+    echo "${BOLD}+${NORMAL} \"search-agent.csv\" copied to $CONFIG_FOLDER"
     sed -i '/FILE_NAME_PATH/c\FILE_NAME = "'$FILE_NAME_PATH'"' /tmp/tingfinder
-    echo "${BOLD}+${NORMAL} \"tingfinder.csv\" path changed to "$HOME" in temporary BUILD file"
+    echo "${BOLD}+${NORMAL} \"search-agent.csv\" Path changed to "$HOME" in temporary BUILD file"
+    cp ./config.yml $CONFIG_FOLDER
+    echo "${BOLD}+${NORMAL} \"config.yml\" copied to $CONFIG_FOLDER"
+    sed -i '/CONFIG_FOLDER_PATH/c\CONFIG_FOLDER = "'$CONFIG_FOLDER'"' /tmp/tingfinder
     echo ""
 else
-    echo "${BOLD}*${NORMAL} tingfinder.csv already exists. Skipping."
+    echo "${BOLD}!${NORMAL} \"search-agent.csv\" already exists. Skipping."
     echo ""
 fi
 
@@ -85,9 +110,24 @@ then
     echo "${BOLD}+${NORMAL} Copied tingfinder to $BIN_FOLDER"
     sudo chmod +x $BIN_FOLDER"tingfinder.py"
 else
-    echo "${BOLD}*${NORMAL} tingfinder.py already exists in $BIN_FOLDER - skipping."    
+    echo "${BOLD}*${NORMAL} tingfinder.py already exists in $BIN_FOLDER - Reinstall? [Y/n]."    
+    read ANSWER
+    case $ANSWER in
+        [Yy]|[Yy][Ee][Ss])                                                          
+        printf 'Continuing with installation.\n'                     
+        wget -q --show-progress --progress=bar:force:noscroll $GITHUB_URL -O  /tmp/tingfinder
+        sudo cp /tmp/tingfinder $BIN_FOLDER/tingfinder.py
+        echo "${BOLD}+${NORMAL} Copied tingfinder to $BIN_FOLDER"
+        sudo chmod +x $BIN_FOLDER"tingfinder.py" ;;
+        [Nn]|[Nn][Oo])                                                              
+        printf 'Abandoning installation.\n'                                     
+        exit 0 ;;                                                               
+        *)                                                                          
+        printf 'ERROR: Invalid response -- quitting.\n' 1>&2                    
+        exit 2 ;;                                                               
+        esac          
 fi
 
 rm /tmp/tingfinder
 echo "${BOLD}+${NORMAL} Done cleaning - temporary files removed."
-printf "${BOLD}+${NORMAL} Installation done.\n\nTo start using tingfinder please open ${BOLD}tingfinder.csv${NORMAL} in a text editor, and edit the products you\'re looking for.\nThe format is: \"name of product\",min-price,max-price"
+printf "${BOLD}+${NORMAL} Installation done.\n\nTo start using tingfinder please open ${BOLD}search-agent.csv${NORMAL} in a text editor, and edit the products you\'re looking for.\nThe format is: \"name of product\",min-price,max-price"
