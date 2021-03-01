@@ -4,5 +4,5 @@ settings:
 
 platforms: # Pick and choose where we want to search. All are on by default
   den_blaa_avis: True
-  gul_gratis: False
-  lauritz_com: False
+  gul_gratis: True
+  lauritz_com: True
